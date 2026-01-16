@@ -1,0 +1,65 @@
+{
+  "model": {
+    "weights": [
+      1.042156441162649,
+      0.2880868641895842,
+      0.46789872010459754,
+      0.4241818029938148,
+      0.3371171833774263,
+      0.13466887817659737,
+      -0.7957391879490019,
+      0.26631753902756233,
+      0.15784797736150616
+    ],
+    "bias": 0.0020841607570537633
+  },
+  "stats": {
+    "cgpa": {
+      "min": 5,
+      "max": 10
+    },
+    "iq": {
+      "min": 80,
+      "max": 139
+    },
+    "projects": {
+      "min": 0,
+      "max": 7
+    },
+    "internships": {
+      "min": 0,
+      "max": 3
+    },
+    "techScore": {
+      "min": 40,
+      "max": 99
+    },
+    "commScore": {
+      "min": 40,
+      "max": 99
+    },
+    "backlogs": {
+      "min": 0,
+      "max": 4
+    },
+    "hackathons": {
+      "min": 0,
+      "max": 5
+    },
+    "certifications": {
+      "min": 0,
+      "max": 4
+    }
+  },
+  "featureOrder": [
+    "cgpa",
+    "iq",
+    "projects",
+    "internships",
+    "techScore",
+    "commScore",
+    "backlogs",
+    "hackathons",
+    "certifications"
+  ]
+}
