@@ -53,7 +53,7 @@ The application follows a premium **Glassmorphism** design language. Below are t
   - **Algorithm**: Logistic Regression.
   - **Optimization**: Gradient Descent.
   - **Normalization**: Min-Max scaling for multi-feature stability.
-- **Persistence**: Weights and bias are serialized to [model_state.json](cci:7://file:///Users/kasulalalithendra/ML_PROJECT/MODEL/model_state.json:0:0-0:0) for persistent intelligence.
+- **Persistence**: Weights and bias are serialized to `model_state.json` for persistent intelligence.
 
 ---
 
@@ -89,4 +89,32 @@ Where $\sigma$ is the Sigmoid function, $\theta$ is the weight vector, $x$ is th
     │   ├── App.css        # Glassmorphic Stylesheets
     │   └── main.jsx       # React Entry Point
     └── package.json       # Dependencies & Scripts
+```
 
+---
+
+## 🚀 Quick Start Guide
+
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
+
+### Setup
+1. **Initialize AI Backend**:
+   ```bash
+   cd MODEL && npm install
+   npm run train  # Generate the model
+   npm start      # Port 5001
+   ```
+2. **Initialize Frontend**:
+   ```bash
+   cd USER && npm install
+   npm run dev    # Port 5173
+   ```
+
+---
+
+<div align="center">
+  <p><b>Developed by Antigravity</b></p>
+  <p><i>Transforming Data into Career Destiny</i></p>
+</div>
