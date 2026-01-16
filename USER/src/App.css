@@ -254,3 +254,24 @@ input:focus {
   color: #94a3b8;
   font-size: 0.85rem;
 }
+
+.professional-note {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  text-align: left;
+}
+
+.professional-note strong {
+  color: var(--primary);
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

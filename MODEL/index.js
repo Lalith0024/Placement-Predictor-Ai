@@ -7,6 +7,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health check and diagnostic route
+app.get('/', (req, res) => {
+  res.json({
+    status: "online",
+    system: "Student Placement Inference Engine",
+    endpoints: ["POST /api/predict"]
+  });
+});
+
 // Load model state
 let modelData;
 try {

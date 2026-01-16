@@ -46,18 +46,30 @@ function App() {
     try {
       await new Promise(resolve => setTimeout(resolve, 800));
 
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api/predict';
-      const response = await fetch(apiUrl, {
+      let baseApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api/predict';
+
+      // Safety check: if user only provided the domain, append the path
+      if (!baseApiUrl.endsWith('/api/predict')) {
+        baseApiUrl = baseApiUrl.endsWith('/')
+          ? `${baseApiUrl}api/predict`
+          : `${baseApiUrl}/api/predict`;
+      }
+
+      const response = await fetch(baseApiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
 
+      if (!response.ok) {
+        throw new Error(`Server responded with ${response.status}`);
+      }
+
       const resultData = await response.json();
       setResult(resultData);
     } catch (error) {
-      console.error('Error:', error);
-      alert('AI Server not detected.');
+      console.error('Inference Error:', error);
+      alert(`AI System Reachability Issue: ${error.message}. Please verify backend status.`);
     } finally {
       setLoading(false);
     }
@@ -213,6 +225,9 @@ function App() {
               ></div>
             </div>
             <p className="message-text">Analysis: {result.message}</p>
+            <div className="professional-note">
+              <strong>Important Note:</strong> This prediction is based on statistical correlation and historical placement patterns. AI models may occasionally produce inaccuracies; therefore, this report should be used as a general guidance tool rather than a final determination of career outcomes.
+            </div>
           </div>
         )}
       </div>
