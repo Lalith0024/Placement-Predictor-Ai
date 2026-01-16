@@ -14,13 +14,13 @@
 
 ---
 
-## 🌟 Overview
+##  Overview
 
 **Student Analytics AI** is a professional-grade predictive platform designed to bridge the gap between academic preparation and recruitment readiness. It features a proprietary **Machine Learning engine** built entirely from scratch in JavaScript, offering a transparent and highly customizable approach to placement forecasting.
 
 ---
 
-## 🎨 Design System (The "Glass" Aesthetic)
+##  Design System (The "Glass" Aesthetic)
 
 The application follows a premium **Glassmorphism** design language. Below are the core design tokens:
 
@@ -32,7 +32,7 @@ The application follows a premium **Glassmorphism** design language. Below are t
 | **Risk Rose** | `#f43f5e` | 🔴 |
 | **Typography** | `Inter, system-ui, Avenir` | **Abc 123** |
 
-### ✨ Visual Highlights
+###  Visual Highlights
 - **Backdrop Blur**: `blur(20px)` for high-depth focus.
 - **Micro-interactions**: Framer Motion powered hover states and layout transitions.
 - **Responsive Grid**: Fluid layout system that adapts to any screen dimension.
@@ -114,7 +114,3 @@ Where $\sigma$ is the Sigmoid function, $\theta$ is the weight vector, $x$ is th
 
 ---
 
-<div align="center">
-  <p><b>Developed by Antigravity</b></p>
-  <p><i>Transforming Data into Career Destiny</i></p>
-</div>
