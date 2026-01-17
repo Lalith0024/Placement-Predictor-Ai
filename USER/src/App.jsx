@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
+
+const LOADING_STEPS = [
+  { label: 'Initializing Neural Engine', subtext: 'Connecting to inference server...' },
+  { label: 'Ingesting Student Profile', subtext: 'Normalizing input vectors...' },
+  { label: 'Cross-referencing Industry Benchmarks', subtext: 'Scanning historical placement trends...' },
+  { label: 'Running ML Predictive Inference', subtext: 'Weighted analysis of academic & technical metrics...' },
+  { label: 'Compiling Professional Report', subtext: 'Finalizing career success probability...' }
+];
 
 function App() {
   const [formData, setFormData] = useState({
@@ -16,6 +24,8 @@ function App() {
 
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingStep, setLoadingStep] = useState(0);
+  const resultRef = useRef(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -41,14 +51,25 @@ function App() {
     };
 
     setLoading(true);
+    setLoadingStep(0);
     setResult(null);
 
+    // Simulate stepping through the process for UI experience
     try {
+      // Step 1: Initializing
       await new Promise(resolve => setTimeout(resolve, 800));
+      setLoadingStep(1);
 
+      // Step 2: Normalization
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setLoadingStep(2);
+
+      // Step 3: Benchmarking
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      setLoadingStep(3);
+
+      // Step 4: Actual Inference (Fetch)
       let baseApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api/predict';
-
-      // Safety check: if user only provided the domain, append the path
       if (!baseApiUrl.endsWith('/api/predict')) {
         baseApiUrl = baseApiUrl.endsWith('/')
           ? `${baseApiUrl}api/predict`
@@ -66,7 +87,18 @@ function App() {
       }
 
       const resultData = await response.json();
+
+      // Step 5: Finalizing
+      setLoadingStep(4);
+      await new Promise(resolve => setTimeout(resolve, 800));
+
       setResult(resultData);
+
+      // Smooth scroll to result
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+
     } catch (error) {
       console.error('Inference Error:', error);
       alert(`AI System Reachability Issue: ${error.message}. Please verify backend status.`);
@@ -77,10 +109,45 @@ function App() {
 
   return (
     <div className="container">
+      {loading && (
+        <div className="loading-overlay">
+          <div className="loading-content">
+            <div className="loader-ring"></div>
+            <div className="steps-container">
+              {LOADING_STEPS.map((step, index) => (
+                <div
+                  key={index}
+                  className={`step-item ${index === loadingStep ? 'active' : ''} ${index < loadingStep ? 'completed' : ''}`}
+                >
+                  <div className="step-dot">
+                    {index < loadingStep ? (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    ) : (index + 1)}
+                  </div>
+                  <div className="step-text">
+                    <div className="step-label">{step.label}</div>
+                    <div className="step-subtext">{step.subtext}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="progress-track">
+              <div
+                className="progress-bar"
+                style={{ width: `${((loadingStep + 1) / LOADING_STEPS.length) * 100}%` }}
+              ></div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="glass-card">
         <div className="header-section">
-          <h1>Student Analytics AI</h1>
-          <p className="subtitle">High-precision predictive modeling for career success.</p>
+          <div className="ai-badge">Advanced Neural Model v2.4</div>
+          <h1>Placement Predictor AI</h1>
+          <p className="subtitle">High-precision predictive modeling for career success. Enter your academic and professional data below.</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -211,22 +278,37 @@ function App() {
         </form>
 
         {result && (
-          <div className={`result show`}>
+          <div ref={resultRef} className={`result show`}>
             <div className={`status-badge ${result.placed ? 'status-placed' : 'status-not-placed'}`}>
               {result.placed ? 'Placement Likely' : 'Requires Focus'}
             </div>
+            <h2>Analysis Summary</h2>
             <div className="prediction-text">
-              Predictive Correlation: {result.probability}%
+              Predictive Correlation: <span className="highlight">{result.probability}%</span>
             </div>
-            <div className="probability-bar">
-              <div
-                className="probability-fill"
-                style={{ width: `${result.probability}%` }}
-              ></div>
+            <div className="probability-bar-container">
+              <div className="probability-bar">
+                <div
+                  className="probability-fill"
+                  style={{ width: `${result.probability}%` }}
+                ></div>
+              </div>
+              <div className="bar-labels">
+                <span>0%</span>
+                <span>Confidence Lexicon</span>
+                <span>100%</span>
+              </div>
             </div>
-            <p className="message-text">Analysis: {result.message}</p>
+            <div className="message-box">
+              <p className="message-text">{result.message}</p>
+            </div>
+
+            <div className="result-actions">
+              <button onClick={() => setResult(null)} className="secondary-btn">Run New Analysis</button>
+            </div>
+
             <div className="professional-note">
-              <strong>Important Note:</strong> This prediction is based on statistical correlation and historical placement patterns. AI models may occasionally produce inaccuracies; therefore, this report should be used as a general guidance tool rather than a final determination of career outcomes.
+              <strong>Important Disclaimer:</strong> This analysis is generated by an AI predictive model. AI systems can occasionally produce inaccurate results or show statistical bias. This report is intended for informational and strategic guidance only, and should not be considered a final or guaranteed determination of career outcomes.
             </div>
           </div>
         )}
